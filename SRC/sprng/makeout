@@ -1,0 +1,114 @@
+(cd ..; make sprng_common)
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+make[1]: Nothing to be done for `sprng_common'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lfg'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lfg'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg64'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg64'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/cmrg'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/cmrg'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/mlfg'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/mlfg'
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/pmlcg'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/pmlcg'
+rm -f ../../lib/libsprng.a
+make ../../lib/libsprng.a
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+gcc -c -O3 -DLittleEndian   -DWINMINGW    -I/usr/local/mpi/include -I/usr/local/mpi/build/LINUX/ch_p4/include  -DAdd__  sprng.c -I..
+ar cr ../../lib/libsprng.a sprng.o \
+	../lcg/lcg.o ../lfg/lfg.o \
+	../lcg64/lcg64.o \
+	../mlfg/mlfg.o ../cmrg/cmrg.o \
+	../pmlcg/pmlcg.o \
+	../primes_32.o ../primes_64.o ../fwrap_mpi.o  ../cputime.o ../makeseed.o  ../simple_mpi.o ../memory.o  ../communicate.o ../checkid.o ../store.o
+ranlib ../../lib/libsprng.a
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+(cd ..; make timesprng_exec TIMESPRNG_LIB=sprng)
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+gcc -O3  -o ../timingcsprng timing.o -L../lib -lsprng 
+(p=0 ; \
+for l in lfg lcg lcg64 cmrg mlfg pmlcg  ; do \
+./inserttimecheck $l ../timesprng "Timing C interface:" timingcsprng ../timingcsprng $p ; \
+p=$(($p+1)) ; \
+done; )
+g77 -O3  -o ../timingfsprng timingf.o -L../lib -lsprng 
+(p=0 ; \
+for l in lfg lcg lcg64 cmrg mlfg pmlcg  ; do \
+./inserttimecheck $l ../timesprng "Timing FORTRAN interface:" timingfsprng ../timingfsprng $p ; \
+p=$(($p+1)) ; \
+done; )
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+(cd ..; make checksprng_exec CHECKSPRNG_LIB=sprng)
+make[1]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+gcc -O3  -o ../check.csprng check_gen.o \
+	-L../lib -lsprng 
+gcc -O3  -o ../check_sim.csprng check_gen_simple.o \
+	-L../lib -lsprng 
+gcc -O3  -o ../check_ptr.csprng check_gen_ptr.o \
+	-L../lib -lsprng 
+(p=0 ; \
+for l in lfg lcg lcg64 cmrg mlfg pmlcg  ; do \
+./insertcheck  $l ../checksprng "Checking Default C interface:" check.csprng ../check.csprng $p ; \
+./insertcheck  $l ../checksprng "Checking Simple C interface:" check_sim.csprng ../check_sim.csprng $p ; \
+./insertcheck  $l ../checksprng "Checking C interface with pointer checking:" check_ptr.csprng ../check_ptr.csprng $p ; \
+p=$(($p+1)) ; \
+done; )
+g77 -O3  -o ../check.fsprng check_genf.o \
+	-L../lib -lsprng 
+g77 -O3  -o ../check_sim.fsprng check_genf_simple.o \
+	-L../lib -lsprng 
+g77 -O3  -o ../check_ptr.fsprng check_genf_ptr.o \
+	-L../lib -lsprng 
+(cd sprng; make sprng)
+make[2]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+(cd ..; make sprng_common)
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+make[3]: Nothing to be done for `sprng_common'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lfg'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lfg'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg64'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/lcg64'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/cmrg'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/cmrg'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/mlfg'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/mlfg'
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/pmlcg'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/pmlcg'
+rm -f ../../lib/libsprng.a
+make ../../lib/libsprng.a
+make[3]: Entering directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+ar cr ../../lib/libsprng.a sprng.o \
+	../lcg/lcg.o ../lfg/lfg.o \
+	../lcg64/lcg64.o \
+	../mlfg/mlfg.o ../cmrg/cmrg.o \
+	../pmlcg/pmlcg.o \
+	../primes_32.o ../primes_64.o ../fwrap_mpi.o  ../cputime.o ../makeseed.o  ../simple_mpi.o ../memory.o  ../communicate.o ../checkid.o ../store.o
+ranlib ../../lib/libsprng.a
+make[3]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+make[2]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC/sprng'
+(p=0 ; \
+for l in lfg lcg lcg64 cmrg mlfg pmlcg  ; do \
+./insertcheck  $l ../checksprng "Checking Default FORTRAN interface:" check.fsprng ../check.fsprng $p ; \
+./insertcheck  $l ../checksprng "Checking Simple FORTRAN interface:" check_sim.fsprng ../check_sim.fsprng $p ; \
+./insertcheck  $l ../checksprng "Checking FORTRAN interface with pointer checking:" check_ptr.fsprng ../check_ptr.fsprng $p ; \
+p=$(($p+1)) ; \
+done; )
+make[1]: Leaving directory `/e/Libraries/test/sprng2.0a/sprng2.0/SRC'

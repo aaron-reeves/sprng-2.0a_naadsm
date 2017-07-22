@@ -1,0 +1,33 @@
+AR = ar
+ARFLAGS = cr
+#If your system does not have ranlib, then replace next statement with 
+#RANLIB = echo
+RANLIB = ranlib
+CC = gcc
+CLD = $(CC)
+# Set f77 to echo if you do not have a FORTRAN compiler
+F77 = g77
+#F77 = echo
+F77LD = $(F77)
+FFXN = -DAdd__
+FSUFFIX = F
+
+MPIF77 = mpif77
+MPICC = mpicc
+
+# MPI cannot be used (at the moment) with WINMINGW
+MPIDEF =
+
+# libgmp cannot be used (at the moment) with WINMINGW
+PMLCGDEF = 
+GMPLIB = 
+
+# Comment out this line if you don't want to create sprng.dll
+DYNAMICLIB = true
+
+CFLAGS = -O3 -DLittleEndian $(PMLCGDEF) $(MPIDEF) -D$(PLAT)  -I/usr/local/mpi/include -I/usr/local/mpi/build/LINUX/ch_p4/include
+CLDFLAGS =  -O3 
+FFLAGS = -O3 $(PMLCGDEF) $(MPIDEF) -D$(PLAT)  -I/usr/local/mpi/include -I/usr/local/mpi/build/LINUX/ch_p4/include -I.
+F77LDFLAGS =  -O3 
+
+CPP = cpp -P

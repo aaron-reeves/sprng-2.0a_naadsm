@@ -1,0 +1,13 @@
+Aaron Reeves 6/14/2006
+
+The original source code for SPRNG 2.0a from http://sprng.cs.fsu.edu does not compile under Microsoft Windows, and contains a header file (pmlcg/longlong.h) that causes problems when compiled on at least some Linux distributions.  The version of SPRNG built for the North American Animal Disease Spread Model (NAADSM: please see http://www.naadsm.org/sprng) corrects (or at least works around) these problems.
+
+The "Quick start" installation instructions provided on the SPRNG website (http://sprng.cs.fsu.edu/Version2.0/quick-start.html) apply to the NAADSM version of SPRNG, with a few minor exceptions as noted below.
+
+To build the SPRNG library on Microsoft Windows, use the MinGW implementation of GCC (while a SPRNG library can be built with Cygwin, such a library is incompatible with other Win32 applications).  In make.CHOICES, select WINMINGW as the platform.
+
+The MPI version of SPRNG is not available with this Windows build: while this would seem to defeat the primary purpose of SPRNG, it does allow for the use of identical source code to be used to generate an application that will run either on Microsoft Windows or in a Linux/UNIX parallel processing environment.  (A more enterprising programmer could probably produce a version of SPRNG with parallel processing capabilities for Windows, if it were necessary.) 
+
+The option to use the GNU Multiple Precision Arithmetic Library (libgmp.a) is not available in this Windows build.  Versions of libgmp do exist for Windows, but I've so far been unable to produce a working version of SPRNG on Windows that uses it.
+
+One source file had to be changed in order to build SPRNG on Windows: cputime.c includes the header file <sys/resource.h>, which is unavailable in MinGW.  If the WINMINGW platform is selected, cputime.c is compiled without this header.  It is not entirely clear what effect this has on SPRNG, but it does not seem to affect the tests included with the SPRNG source code (except for the tests of the libgmp-dependent pmlcg generator).
